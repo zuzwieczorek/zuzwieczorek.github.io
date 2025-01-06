@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (nextContainer) {
           nextContainer.style.display = "grid"; // Show the next container (Feel/Seem buttons)
         } else {
-          secondaryButtons.style.display = "grid"; // Show Feel/Seem buttons
+          secondaryButtons.style.display = "grid"; // Show Feel/Seem buttons after fourth button
         }
       });
       outputElement.appendChild(backBtn);
@@ -43,7 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // After the fourth button, show the Feel/Seem buttons
         if (index === items.length - 1) {
-          secondaryButtons.style.display = "grid"; // Show the secondary buttons after the last one
+          // Don't show secondary buttons until back is clicked
+          secondaryButtons.style.display = "none";
         }
       });
     });
