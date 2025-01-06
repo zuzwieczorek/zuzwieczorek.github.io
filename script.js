@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
       buttonContainer.style.display = "none"; // Hide all buttons
       secondaryButtons.style.display = "none"; // Hide secondary buttons
 
+      // Hide the clicked button
+      button.style.display = "none";  // This line will hide the button once it's clicked
+
       // Add a back button
       const backBtn = document.createElement("button");
       backBtn.id = "back-btn";
@@ -64,3 +67,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
