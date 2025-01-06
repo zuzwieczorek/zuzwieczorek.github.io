@@ -1,74 +1,66 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2758
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+body {
+  font-family: Menlo, monospace;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
 
-\f0\fs24 \cf0 body \{\
-  font-family: Menlo, monospace;\
-  background-color: black;\
-  color: white;\
-  display: flex;\
-  justify-content: center;\
-  align-items: center;\
-  height: 100vh;\
-  margin: 0;\
-\}\
-\
-.container \{\
-  display: flex;\
-  flex-direction: column;\
-  align-items: center;\
-  justify-content: center;\
-  width: 100%;\
-  height: 100%;\
-\}\
-\
-.quote \{\
-  cursor: pointer;\
-  padding: 20px;\
-  border: 1px solid white;\
-  border-radius: 5px;\
-  text-align: center;\
-\}\
-\
-.grid \{\
-  display: none; /* Initially hidden */\
-  gap: 15px;\
-  grid-template-columns: repeat(2, 1fr); /* Adjust for two or four buttons */\
-  width: 60%;\
-  margin-top: 20px;\
-  justify-content: center;\
-\}\
-\
-.item \{\
-  padding: 20px; /* Larger padding for better visibility */\
-  background-color: #444;\
-  color: white;\
-  text-align: center;\
-  border-radius: 5px;\
-  cursor: pointer;\
-  font-size: 1.2rem; /* Larger font size */\
-  width: 200px; /* Larger button width */\
-  height: 150px; /* Larger button height */\
-  display: flex;\
-  align-items: center;\
-  justify-content: center;\
-\}\
-\
-.output \{\
-  display: none;\
-  justify-content: center;\
-  align-items: center;\
-  flex-direction: column;\
-\}\
-\
-.output img \{\
-  max-width: 100%;\
-  max-height: 100%;\
-  width: 600px; /* Set a larger fixed width */\
-  height: auto; /* Maintain aspect ratio */\
-  object-fit: contain;\
-\}\
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.quote {
+  cursor: pointer;
+  padding: 20px;
+  border: 1px solid white;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.grid {
+  display: none; /* Initially hidden */
+  gap: 15px;
+  grid-template-columns: repeat(2, 1fr); /* Adjust for two or four buttons */
+  width: 60%;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.item {
+  padding: 20px; /* Larger padding for better visibility */
+  background-color: #444;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem; /* Larger font size */
+  width: 200px; /* Larger button width */
+  height: 150px; /* Larger button height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.output {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.output img {
+  max-width: 100%;
+  max-height: 100%;
+  width: 600px; /* Set a larger fixed width */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain;
 }
