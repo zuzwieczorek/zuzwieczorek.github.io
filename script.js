@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const outputElement = document.querySelector(".output");
 
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
-    // Show the first button when page loads
+    // Show the first button when the page loads
     quoteElement.addEventListener("click", function () {
       buttonContainer.style.display = "grid"; // Show the first grid of buttons
       quoteElement.style.display = "none"; // Hide the initial quote button
@@ -36,10 +36,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add event listeners to the first grid buttons
     const items = buttonContainer.querySelectorAll(".item");
-    items.forEach((item) => {
+    items.forEach((item, index) => {
       item.addEventListener("click", function () {
-        handleButtonClick(item, buttonContainer); // Return to the main grid
+        handleButtonClick(item, buttonContainer); // Show GIF for the clicked button
         item.style.display = "none"; // Hide the clicked button
+        if (index === items.length - 1) {
+          secondaryButtons.style.display = "grid"; // Show Feel/Seem buttons after the last one
+        }
       });
     });
 
@@ -47,15 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const secondaryItems = secondaryButtons.querySelectorAll(".item");
     secondaryItems.forEach((item) => {
       item.addEventListener("click", function () {
-        handleButtonClick(item, null); // No next container, end the navigation here
+        handleButtonClick(item, null); // Show the selected GIF for Feel/Seem
         item.style.display = "none"; // Hide the clicked secondary button
       });
-    });
-
-    // Show the secondary buttons after the last grid button is clicked
-    const lastButton = items[items.length - 1];
-    lastButton.addEventListener("click", function () {
-      secondaryButtons.style.display = "grid"; // Show secondary buttons (Feel, Seem)
     });
   }
 });
