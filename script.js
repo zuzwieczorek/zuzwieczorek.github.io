@@ -24,13 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
       backBtn.id = "back-btn";
       backBtn.textContent = "Back";
       backBtn.addEventListener("click", function () {
-        outputElement.style.display = "none"; // Hide the GIF
+        outputElement.style.display = "none"; // Hide the GIF first
         // Show the appropriate container after going back
         if (nextContainer) {
           nextContainer.style.display = "grid"; // Show the next container (Feel/Seem buttons)
         } else {
-          // Show the Feel/Seem buttons **only after** the last (4th) GIF
-          secondaryButtons.style.display = "grid";
+          // Only show Feel/Seem buttons after the last (4th) GIF is seen
+          secondaryButtons.style.display = "grid"; 
         }
       });
       outputElement.appendChild(backBtn);
