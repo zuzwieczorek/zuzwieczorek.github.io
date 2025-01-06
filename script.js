@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Function to handle button clicks
-    function handleButtonClick(button) {
+    function handleButtonClick(button, nextContainer) {
       const gifSrc = button.getAttribute("data-src");
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`; // Show the GIF
-      outputElement.style.display = "flex"; // Show the output (GIF)
+      outputElement.style.display = "flex"; // Show the output
       button.style.display = "none"; // Hide the clicked button
       clickedButtonsCount++;
 
@@ -27,14 +27,14 @@ document.addEventListener("DOMContentLoaded", function () {
       backBtn.textContent = "Back";
       backBtn.addEventListener("click", function () {
         outputElement.style.display = "none"; // Hide GIF
-        // Only show the secondary buttons if all 4 first buttons are clicked
         if (clickedButtonsCount === 4) {
-          secondaryButtons.style.display = "grid"; // Show secondary buttons after 4 clicks
+          secondaryButtons.style.display = "grid"; // Show secondary buttons when all 4 are clicked
         } else {
-          buttonContainer.style.display = "grid"; // Go back to the grid of buttons
+          buttonContainer.style.display = "grid"; // Show the first grid of buttons
         }
+        backBtn.remove(); // Remove back button after clicking
       });
-      outputElement.appendChild(backBtn); // Add the back button to the output section
+      outputElement.appendChild(backBtn);
 
       // Show "Feel" and "Seem" buttons when all 4 buttons are clicked
       if (clickedButtonsCount === 4) {
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const items = buttonContainer.querySelectorAll(".item");
     items.forEach((item) => {
       item.addEventListener("click", function () {
-        handleButtonClick(item); // Pass clicked button to handle button click
+        handleButtonClick(item, buttonContainer); // Pass button container to handle button click
       });
     });
 
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     secondaryItems.forEach((item) => {
       item.addEventListener("click", function () {
         outputElement.innerHTML = `<img src="${item.getAttribute('data-src')}" alt="GIF">`; // Show the GIF
-        outputElement.style.display = "flex"; // Show the output (GIF)
+        outputElement.style.display = "flex"; // Show the output
         item.style.display = "none"; // Hide the clicked secondary button
         clickedButtonsCount++; // Count the button click
 
