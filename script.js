@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function handleButtonClick(button, nextContainer) {
       const gifSrc = button.getAttribute("data-src");
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`; // Show the GIF
-      outputElement.style.display = "flex"; // Show the output
+      outputElement.style.display = "flex"; // Show the output (GIF)
       buttonContainer.style.display = "none"; // Hide all buttons
-      secondaryButtons.style.display = "none"; // Hide secondary buttons
+      secondaryButtons.style.display = "none"; // Hide secondary buttons initially
 
       // Add a back button to return to the previous state
       const backBtn = document.createElement("button");
@@ -25,10 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
       backBtn.textContent = "Back";
       backBtn.addEventListener("click", function () {
         outputElement.style.display = "none"; // Hide the GIF
+        // Show the appropriate container after going back
         if (nextContainer) {
           nextContainer.style.display = "grid"; // Show the next container (Feel/Seem buttons)
         } else {
-          // Show Feel/Seem buttons **only after** the last (4th) GIF
+          // Show the Feel/Seem buttons **only after** the last (4th) GIF
           secondaryButtons.style.display = "grid";
         }
       });
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         handleButtonClick(item, buttonContainer); // Show GIF for the clicked button
         item.style.display = "none"; // Hide the clicked button
 
-        // After the fourth button, show the Feel/Seem buttons
+        // Only after clicking the fourth button, show the Feel/Seem buttons
         if (index === items.length - 1) {
           secondaryButtons.style.display = "none"; // Hide Feel/Seem initially after clicking last of 4
         }
