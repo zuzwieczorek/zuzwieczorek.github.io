@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const secondaryButtons = document.getElementById("secondary-buttons");
   const outputElement = document.querySelector(".output");
 
+  let clickedButtonsCount = 0;
+
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
     // Show the first button when page loads
     quoteElement.addEventListener("click", function () {
@@ -11,40 +13,41 @@ document.addEventListener("DOMContentLoaded", function () {
       quoteElement.style.display = "none"; // Hide the initial quote button
     });
 
-    // Function to handle button clicks (GIF display logic)
+    // Function to handle button clicks
     function handleButtonClick(button, nextContainer) {
       const gifSrc = button.getAttribute("data-src");
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`; // Show the GIF
-      outputElement.style.display = "flex"; // Show the output (GIF)
-      buttonContainer.style.display = "none"; // Hide all buttons
-      secondaryButtons.style.display = "none"; // Hide secondary buttons initially
+      outputElement.style.display = "flex"; // Show the output
+      button.style.display = "none"; // Hide the clicked button
+      clickedButtonsCount++;
 
-      // Add a back button to return to the previous state
+      // Add a back button
       const backBtn = document.createElement("button");
       backBtn.id = "back-btn";
       backBtn.textContent = "Back";
       backBtn.addEventListener("click", function () {
-        outputElement.style.display = "none"; // Hide the GIF first
+        outputElement.style.display = "none"; // Hide GIF
         if (nextContainer) {
-          nextContainer.style.display = "grid"; // Show the next container (Feel/Seem buttons)
+          nextContainer.style.display = "grid"; // Show the next container
         } else {
-          secondaryButtons.style.display = "grid"; // Show Feel/Seem after clicking the last of 4
+          secondaryButtons.style.display = "grid"; // Show secondary buttons when all 4 are clicked
         }
       });
       outputElement.appendChild(backBtn);
+
+      // Show "Feel" and "Seem" buttons when all 4 buttons are clicked
+      if (clickedButtonsCount === 4) {
+        setTimeout(function () {
+          secondaryButtons.style.display = "grid"; // Show secondary buttons after 4 clicks
+        }, 500);
+      }
     }
 
-    // Add event listeners to the first grid buttons (the initial 4 buttons)
+    // Add event listeners to the first grid buttons
     const items = buttonContainer.querySelectorAll(".item");
-    items.forEach((item, index) => {
+    items.forEach((item) => {
       item.addEventListener("click", function () {
-        handleButtonClick(item, buttonContainer); // Show GIF for the clicked button
-        item.style.display = "none"; // Hide the clicked button
-
-        // Only after clicking the fourth button, show the Feel/Seem buttons
-        if (index === items.length - 1) {
-          secondaryButtons.style.display = "none"; // Hide Feel/Seem initially after clicking last of 4
-        }
+        handleButtonClick(item, buttonContainer); // Pass button container to handle button click
       });
     });
 
@@ -52,8 +55,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const secondaryItems = secondaryButtons.querySelectorAll(".item");
     secondaryItems.forEach((item) => {
       item.addEventListener("click", function () {
-        handleButtonClick(item, null); // Show the selected GIF for Feel/Seem
+        outputElement.innerHTML = `<img src="${item.getAttribute('data-src')}" alt="GIF">`; // Show the GIF
+        outputElement.style.display = "flex"; // Show the output
         item.style.display = "none"; // Hide the clicked secondary button
+        clickedButtonsCount++; // Count the button click
+
+        // After one secondary button is clicked, the other will stay
+        if (clickedButtonsCount === 5) {
+          setTimeout(function () {
+            // Once the last button is clicked, everything disappears and the background goes black
+            outputElement.style.display = "none";
+            secondaryButtons.style.display = "none";
+            buttonContainer.style.display = "none";
+            quoteElement.style.display = "none";
+            document.body.style.backgroundColor = "black"; // Set background to black
+          }, 500);
+        }
       });
     });
   }
