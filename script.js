@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // After the fourth button, show the Feel/Seem buttons
         if (index === items.length - 1) {
-          secondaryButtons.style.display = "none";
+          secondaryButtons.style.display = "grid"; // Show the Feel/Seem buttons after the 4th button
         }
       });
     });
