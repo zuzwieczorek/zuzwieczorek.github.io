@@ -25,12 +25,12 @@ document.addEventListener("DOMContentLoaded", function () {
       backBtn.textContent = "Back";
       backBtn.addEventListener("click", function () {
         outputElement.style.display = "none"; // Hide the GIF first
-        // Show the appropriate container after going back
+
+        // Only after the GIF disappears, show the secondary buttons (Feel/Seem)
         if (nextContainer) {
           nextContainer.style.display = "grid"; // Show the next container (Feel/Seem buttons)
         } else {
-          // Only show Feel/Seem buttons after the last (4th) GIF is seen
-          secondaryButtons.style.display = "grid"; 
+          secondaryButtons.style.display = "grid"; // Show Feel/Seem after clicking the last of 4
         }
       });
       outputElement.appendChild(backBtn);
