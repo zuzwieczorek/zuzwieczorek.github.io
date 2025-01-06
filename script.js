@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // After the fourth button, show the Feel/Seem buttons
         if (index === items.length - 1) {
-          // Don't show secondary buttons until back is clicked
           secondaryButtons.style.display = "none";
         }
       });
