@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (nextContainer) {
           nextContainer.style.display = "grid"; // Show the next container
         } else {
-          quoteElement.style.display = "block"; // Show the initial quote button
+          secondaryButtons.style.display = "grid"; // Show Feel/Seem buttons
         }
       });
       outputElement.appendChild(backBtn);
