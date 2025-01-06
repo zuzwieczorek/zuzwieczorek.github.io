@@ -36,15 +36,15 @@ body {
 }
 
 .item {
-  padding: 20px; /* Larger padding for better visibility */
+  padding: 20px;
   background-color: #444;
   color: white;
   text-align: center;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.2rem; /* Larger font size */
-  width: 200px; /* Larger button width */
-  height: 150px; /* Larger button height */
+  width: 200px;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,17 +60,7 @@ body {
 .output img {
   max-width: 100%;
   max-height: 100%;
-  width: 600px; /* Set a larger fixed width */
-  height: auto; /* Maintain aspect ratio */
+  width: 600px;
+  height: auto;
   object-fit: contain;
-}
-
-#back-btn {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #444;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
