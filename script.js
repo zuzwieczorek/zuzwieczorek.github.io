@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const outputElement = document.querySelector(".output");
 
   let lastContainer = null; // Track the last container that was visible
-  let isLastItemClicked = false; // Track if the last item in the first grid is clicked
 
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
     // Show the first button when page loads
@@ -20,11 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const gifSrc = button.getAttribute("data-src");
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`; // Show the GIF
       outputElement.style.display = "flex"; // Show the output
-      buttonContainer.style.display = "none"; // Hide all buttons
+      button.style.display = "none"; // Hide the clicked button
+      lastContainer.style.display = "none"; // Hide the previous container
       secondaryButtons.style.display = "none"; // Hide secondary buttons
-
-      // Hide the clicked button
-      button.style.display = "none";  // This line will hide the button once it's clicked
 
       // Add a back button
       const backBtn = document.createElement("button");
@@ -32,12 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
       backBtn.textContent = "Back";
       backBtn.addEventListener("click", function () {
         outputElement.style.display = "none"; // Hide GIF
-        if (isLastItemClicked) {
-          // Show the secondary grid (Feel / Seem) after clicking the last item
-          secondaryButtons.style.display = "grid";
-          buttonContainer.style.display = "none";
+        if (nextContainer) {
+          nextContainer.style.display = "grid"; // Show the next container
         } else {
-          lastContainer.style.display = "grid"; // Show the last container
+          quoteElement.style.display = "block"; // Show the initial quote button
         }
       });
       outputElement.appendChild(backBtn);
@@ -45,13 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add event listeners to the first grid buttons
     const items = buttonContainer.querySelectorAll(".item");
-    items.forEach((item, index) => {
+    items.forEach((item) => {
       item.addEventListener("click", function () {
-        if (index === items.length - 1) {
-          // Track if the last item is clicked
-          isLastItemClicked = true;
-        }
-        lastContainer = buttonContainer; // Track the first grid
         handleButtonClick(item, secondaryButtons); // Go to the secondary buttons
         buttonContainer.style.display = "none"; // Hide the first grid
       });
@@ -61,10 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const secondaryItems = secondaryButtons.querySelectorAll(".item");
     secondaryItems.forEach((item) => {
       item.addEventListener("click", function () {
-        lastContainer = secondaryButtons; // Track the second grid (Feel / Seem)
         handleButtonClick(item, null); // No next container, end the navigation here
       });
     });
   }
 });
-
