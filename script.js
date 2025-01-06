@@ -27,12 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
       backBtn.textContent = "Back";
       backBtn.addEventListener("click", function () {
         outputElement.style.display = "none"; // Hide GIF
-        if (clickedButtonsCount === 4) {
-          secondaryButtons.style.display = "grid"; // Show secondary buttons after 4 clicks
+        if (nextContainer) {
+          nextContainer.style.display = "grid"; // Show the next container
         } else {
-          buttonContainer.style.display = "grid"; // Show the first grid of buttons
+          secondaryButtons.style.display = "grid"; // Show secondary buttons when all 4 are clicked
         }
-        backBtn.remove(); // Remove back button after clicking
       });
       outputElement.appendChild(backBtn);
 
