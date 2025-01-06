@@ -36,9 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add event listeners to the first grid buttons
     const items = buttonContainer.querySelectorAll(".item");
-    items.forEach((item) => {
+    items.forEach((item, index) => {
       item.addEventListener("click", function () {
-        handleButtonClick(item, buttonContainer); // Return to the main grid
+        // If it's the last button (4th one), show the secondary buttons
+        if (index === items.length - 1) {
+          secondaryButtons.style.display = "grid"; // Show the secondary buttons
+        } else {
+          handleButtonClick(item, buttonContainer); // Continue with the main grid
+        }
       });
     });
 
@@ -51,3 +56,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
