@@ -4,46 +4,44 @@ document.addEventListener("DOMContentLoaded", function () {
   const secondaryButtons = document.getElementById("secondary-buttons");
   const outputElement = document.querySelector(".output");
 
-  let lastContainer = null; // Track the last container that was visible
+  let clickedCount = 0;
+  let gifDisplayed = false;
 
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
     // Show the first button when page loads
     quoteElement.addEventListener("click", function () {
       buttonContainer.style.display = "grid"; // Show the first grid of buttons
       quoteElement.style.display = "none"; // Hide the initial quote button
-      lastContainer = buttonContainer; // Track the first grid
     });
 
     // Function to handle button clicks
-    function handleButtonClick(button, nextContainer) {
+    function handleButtonClick(button) {
       const gifSrc = button.getAttribute("data-src");
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`; // Show the GIF
       outputElement.style.display = "flex"; // Show the output
       button.style.display = "none"; // Hide the clicked button
-      lastContainer.style.display = "none"; // Hide the previous container
-      secondaryButtons.style.display = "none"; // Hide secondary buttons
+      clickedCount++;
 
-      // Add a back button
-      const backBtn = document.createElement("button");
-      backBtn.id = "back-btn";
-      backBtn.textContent = "Back";
-      backBtn.addEventListener("click", function () {
-        outputElement.style.display = "none"; // Hide GIF
-        if (nextContainer) {
-          nextContainer.style.display = "grid"; // Show the next container
-        } else {
-          quoteElement.style.display = "block"; // Show the initial quote button
-        }
-      });
-      outputElement.appendChild(backBtn);
+      if (clickedCount === 4 && !gifDisplayed) {
+        gifDisplayed = true;
+        // Once all 4 are clicked, show the "Back" button and prepare for Feel / Seem buttons
+        const backBtn = document.createElement("button");
+        backBtn.id = "back-btn";
+        backBtn.textContent = "Back";
+        backBtn.addEventListener("click", function () {
+          // Hide the GIF and show secondary buttons (Feel / Seem)
+          outputElement.style.display = "none";
+          secondaryButtons.style.display = "grid";
+        });
+        outputElement.appendChild(backBtn);
+      }
     }
 
     // Add event listeners to the first grid buttons
     const items = buttonContainer.querySelectorAll(".item");
     items.forEach((item) => {
       item.addEventListener("click", function () {
-        handleButtonClick(item, secondaryButtons); // Go to the secondary buttons
-        buttonContainer.style.display = "none"; // Hide the first grid
+        handleButtonClick(item); // Call handleButtonClick when a button is clicked
       });
     });
 
@@ -51,7 +49,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const secondaryItems = secondaryButtons.querySelectorAll(".item");
     secondaryItems.forEach((item) => {
       item.addEventListener("click", function () {
-        handleButtonClick(item, null); // No next container, end the navigation here
+        outputElement.innerHTML = `<img src="${item.getAttribute('data-src')}" alt="GIF">`; // Show the GIF
+        outputElement.style.display = "flex"; // Show the output
+        secondaryButtons.style.display = "none"; // Hide secondary buttons after click
       });
     });
   }
