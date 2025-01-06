@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // After all buttons clicked, show secondary buttons
     if (buttonsClicked >= 4) {
-      secondaryButtons.style.display = "grid"; // Show the secondary buttons
+      setTimeout(function () {
+        secondaryButtons.style.display = "grid"; // Show the secondary buttons
+      }, 300); // Delay showing secondary buttons until GIF is gone
     }
 
     // Add a back button
