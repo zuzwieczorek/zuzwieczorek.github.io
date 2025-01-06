@@ -15,11 +15,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to handle button clicks and make buttons disappear
   function handleButtonClick(button, nextContainer) {
     const gifSrc = button.getAttribute("data-src");
-    outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`; // Show the GIF
-    outputElement.style.display = "flex"; // Show the GIF
+    
+    // Hide the button first, then show the GIF
+    button.style.display = "none"; 
 
-    // Hide the button that was clicked
-    button.style.display = "none";
+    setTimeout(() => {
+      outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`; // Show the GIF
+      outputElement.style.display = "flex"; // Show the GIF
+    }, 200); // Delay GIF showing for smooth effect
 
     // After all buttons clicked, show secondary buttons
     if (buttonsClicked >= 4) {
