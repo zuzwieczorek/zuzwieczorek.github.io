@@ -27,19 +27,18 @@ document.addEventListener("DOMContentLoaded", function () {
       backBtn.textContent = "Back";
       backBtn.addEventListener("click", function () {
         outputElement.style.display = "none"; // Hide GIF
-        if (nextContainer) {
-          nextContainer.style.display = "grid"; // Show the next container
+        if (clickedButtonsCount === 4) {
+          secondaryButtons.style.display = "grid"; // Show secondary buttons after the 4th button
         } else {
-          secondaryButtons.style.display = "grid"; // Show secondary buttons when all 4 are clicked
+          buttonContainer.style.display = "grid"; // Go back to the grid of buttons
         }
       });
       outputElement.appendChild(backBtn);
 
       // Show "Feel" and "Seem" buttons when all 4 buttons are clicked
       if (clickedButtonsCount === 4) {
-        setTimeout(function () {
-          secondaryButtons.style.display = "grid"; // Show secondary buttons after 4 clicks
-        }, 500);
+        // Secondary buttons are hidden until back is clicked
+        secondaryButtons.style.display = "none";
       }
     }
 
