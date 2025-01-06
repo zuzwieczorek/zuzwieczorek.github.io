@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const outputElement = document.querySelector(".output");
 
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
-    // Show the first button when page loads
+    // Show the first button when the page loads
     quoteElement.addEventListener("click", function () {
       buttonContainer.style.display = "grid"; // Show the first grid of buttons
       quoteElement.style.display = "none"; // Hide the initial quote button
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (nextContainer) {
           nextContainer.style.display = "grid"; // Show the next container (Feel/Seem buttons)
         } else {
+          // Show secondary buttons only after the back button for the 4th GIF
           secondaryButtons.style.display = "grid"; // Show Feel/Seem after clicking the last of 4
         }
       });
