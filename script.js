@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
       backBtn.addEventListener("click", function () {
         outputElement.style.display = "none"; // Hide GIF
         if (clickedButtonsCount === 4) {
-          secondaryButtons.style.display = "grid"; // Show secondary buttons when all 4 are clicked
+          secondaryButtons.style.display = "grid"; // Show secondary buttons after 4 clicks
         } else {
           buttonContainer.style.display = "grid"; // Show the first grid of buttons
         }
