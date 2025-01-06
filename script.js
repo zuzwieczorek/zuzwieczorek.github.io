@@ -20,21 +20,21 @@ document.addEventListener("DOMContentLoaded", function () {
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`;
       outputElement.style.display = "flex";
 
+      buttonContainer.style.display = "none"; // Hide the buttons grid
+      secondaryButtons.style.display = "none"; // Hide secondary buttons (if visible)
       button.style.display = "none"; // Hide the clicked button
-      clickedCount++; // Increment click count
 
-      // If all buttons are clicked, prepare to show secondary buttons
-      if (clickedCount === totalButtons) {
-        buttonContainer.style.display = "none";
-      }
+      clickedCount++; // Increment click count
 
       // Add a back button
       const backBtn = document.createElement("button");
       backBtn.id = "back-btn";
       backBtn.textContent = "Back";
+      backBtn.style.marginTop = "10px"; // Small margin for better appearance
       backBtn.addEventListener("click", function () {
         outputElement.style.display = "none"; // Hide the GIF
         outputElement.innerHTML = ""; // Clear the output
+
         if (clickedCount === totalButtons) {
           // Show secondary buttons when all initial buttons are clicked
           secondaryButtons.style.display = "grid";
@@ -60,14 +60,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const gifSrc = item.getAttribute("data-src");
         outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`;
         outputElement.style.display = "flex";
+
         secondaryButtons.style.display = "none"; // Hide secondary buttons
 
         // Add a back button for secondary buttons
         const backBtn = document.createElement("button");
         backBtn.id = "back-btn-secondary";
         backBtn.textContent = "Back";
+        backBtn.style.marginTop = "10px"; // Small margin for better appearance
         backBtn.addEventListener("click", function () {
           outputElement.style.display = "none";
+          outputElement.innerHTML = ""; // Clear the output
           secondaryButtons.style.display = "grid"; // Show secondary buttons again
         });
         outputElement.appendChild(backBtn);
