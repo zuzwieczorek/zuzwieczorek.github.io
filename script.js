@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const secondaryButtons = document.getElementById("secondary-buttons");
   const outputElement = document.querySelector(".output");
 
-  let clickedCount = 0; // To track how many buttons have been clicked
-  const totalButtons = buttonContainer.querySelectorAll(".item").length;
+  let clickedCount = 0; // Track clicks on the secondary buttons
+  let secondaryClicked = { feel: false, seem: false }; // Track individual secondary button states
 
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
-    // Show the first grid of buttons when the quote is clicked
+    // Show the primary grid when the quote is clicked
     quoteElement.addEventListener("click", function () {
       buttonContainer.style.display = "grid";
       quoteElement.style.display = "none";
@@ -20,37 +20,43 @@ document.addEventListener("DOMContentLoaded", function () {
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`;
       outputElement.style.display = "flex";
 
-      buttonContainer.style.display = "none"; // Hide the buttons grid
-      secondaryButtons.style.display = "none"; // Hide secondary buttons (if visible)
+      buttonContainer.style.display = "none"; // Hide primary grid
+      secondaryButtons.style.display = "none"; // Hide secondary buttons
       button.style.display = "none"; // Hide the clicked button
-
-      if (!isSecondary) {
-        clickedCount++; // Increment click count for primary grid
-      }
 
       // Add a back button
       const backBtn = document.createElement("button");
       backBtn.id = "back-btn";
       backBtn.textContent = "Back";
-      backBtn.style.marginTop = "10px"; // Small margin for better appearance
+      backBtn.style.marginTop = "10px"; // Add some spacing
       backBtn.addEventListener("click", function () {
-        outputElement.style.display = "none"; // Hide the GIF
+        outputElement.style.display = "none"; // Hide GIF
         outputElement.innerHTML = ""; // Clear the output
 
-        if (clickedCount === totalButtons && !isSecondary) {
-          // Show secondary buttons only if all primary buttons are clicked
-          secondaryButtons.style.display = "grid";
-        } else if (!isSecondary) {
-          buttonContainer.style.display = "grid"; // Show the primary grid again
+        if (!isSecondary) {
+          // If a primary button was clicked, return to primary grid
+          buttonContainer.style.display = "grid";
         } else {
-          // After clicking secondary buttons, nothing further appears
-          secondaryButtons.style.display = "none";
+          // If a secondary button was clicked, show only remaining unclicked buttons
+          if (!secondaryClicked.feel) {
+            document.querySelector("#feel-button").style.display = "block";
+          }
+          if (!secondaryClicked.seem) {
+            document.querySelector("#seem-button").style.display = "block";
+          }
+          secondaryButtons.style.display = "grid";
+
+          // Hide the secondary grid if both are clicked
+          if (clickedCount === 2) {
+            secondaryButtons.style.display = "none";
+          }
         }
+        backBtn.remove(); // Remove the back button
       });
       outputElement.appendChild(backBtn);
     }
 
-    // Add event listeners to the first grid buttons
+    // Add event listeners to the primary grid buttons
     const items = buttonContainer.querySelectorAll(".item");
     items.forEach((item) => {
       item.addEventListener("click", function () {
@@ -62,7 +68,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const secondaryItems = secondaryButtons.querySelectorAll(".item");
     secondaryItems.forEach((item) => {
       item.addEventListener("click", function () {
-        handleButtonClick(item, true); // Indicate it's a secondary button
+        const id = item.id;
+        if (id === "feel-button") secondaryClicked.feel = true;
+        if (id === "seem-button") secondaryClicked.seem = true;
+
+        clickedCount++; // Increment the click count for secondary buttons
+        handleButtonClick(item, true);
       });
     });
   }
