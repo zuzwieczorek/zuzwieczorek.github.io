@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const secondaryButtons = document.getElementById("secondary-buttons");
   const outputElement = document.querySelector(".output");
 
-  let clickedCount = 0; // Track clicks on the secondary buttons
-  let secondaryClicked = { feel: false, seem: false }; // Track individual secondary button states
+  let clickedCount = 0; // Track clicks on secondary buttons
+  let secondaryClicked = { feel: false, seem: false }; // Track which secondary buttons are clicked
 
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
-    // Show the primary grid when the quote is clicked
+    // Show primary grid when the quote is clicked
     quoteElement.addEventListener("click", function () {
       buttonContainer.style.display = "grid";
       quoteElement.style.display = "none";
@@ -20,24 +20,23 @@ document.addEventListener("DOMContentLoaded", function () {
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`;
       outputElement.style.display = "flex";
 
-      buttonContainer.style.display = "none"; // Hide primary grid
-      secondaryButtons.style.display = "none"; // Hide secondary buttons
-      button.style.display = "none"; // Hide the clicked button
+      buttonContainer.style.display = "none";
+      secondaryButtons.style.display = "none";
+      button.style.display = "none";
 
       // Add a back button
       const backBtn = document.createElement("button");
       backBtn.id = "back-btn";
       backBtn.textContent = "Back";
-      backBtn.style.marginTop = "10px"; // Add some spacing
+      backBtn.style.marginTop = "10px";
       backBtn.addEventListener("click", function () {
-        outputElement.style.display = "none"; // Hide GIF
-        outputElement.innerHTML = ""; // Clear the output
+        outputElement.style.display = "none";
+        outputElement.innerHTML = "";
 
         if (!isSecondary) {
-          // If a primary button was clicked, return to primary grid
           buttonContainer.style.display = "grid";
         } else {
-          // If a secondary button was clicked, show only remaining unclicked buttons
+          // Show only unclicked secondary buttons
           if (!secondaryClicked.feel) {
             document.querySelector("#feel-button").style.display = "block";
           }
@@ -46,17 +45,16 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           secondaryButtons.style.display = "grid";
 
-          // Hide the secondary grid if both are clicked
           if (clickedCount === 2) {
-            secondaryButtons.style.display = "none";
+            secondaryButtons.style.display = "none"; // Hide all if both clicked
           }
         }
-        backBtn.remove(); // Remove the back button
+        backBtn.remove();
       });
       outputElement.appendChild(backBtn);
     }
 
-    // Add event listeners to the primary grid buttons
+    // Add event listeners to primary grid buttons
     const items = buttonContainer.querySelectorAll(".item");
     items.forEach((item) => {
       item.addEventListener("click", function () {
@@ -64,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // Add event listeners to the secondary buttons (Feel and Seem)
+    // Add event listeners to secondary buttons
     const secondaryItems = secondaryButtons.querySelectorAll(".item");
     secondaryItems.forEach((item) => {
       item.addEventListener("click", function () {
@@ -72,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (id === "feel-button") secondaryClicked.feel = true;
         if (id === "seem-button") secondaryClicked.seem = true;
 
-        clickedCount++; // Increment the click count for secondary buttons
+        clickedCount++;
         handleButtonClick(item, true);
       });
     });
