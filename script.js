@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Function to handle button clicks
-    function handleButtonClick(button) {
+    function handleButtonClick(button, isSecondary = false) {
       const gifSrc = button.getAttribute("data-src");
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`;
       outputElement.style.display = "flex";
@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
       secondaryButtons.style.display = "none"; // Hide secondary buttons (if visible)
       button.style.display = "none"; // Hide the clicked button
 
-      clickedCount++; // Increment click count
+      if (!isSecondary) {
+        clickedCount++; // Increment click count for primary grid
+      }
 
       // Add a back button
       const backBtn = document.createElement("button");
@@ -35,11 +37,14 @@ document.addEventListener("DOMContentLoaded", function () {
         outputElement.style.display = "none"; // Hide the GIF
         outputElement.innerHTML = ""; // Clear the output
 
-        if (clickedCount === totalButtons) {
-          // Show secondary buttons when all initial buttons are clicked
+        if (clickedCount === totalButtons && !isSecondary) {
+          // Show secondary buttons only if all primary buttons are clicked
           secondaryButtons.style.display = "grid";
+        } else if (!isSecondary) {
+          buttonContainer.style.display = "grid"; // Show the primary grid again
         } else {
-          buttonContainer.style.display = "grid"; // Show the grid again
+          // After clicking secondary buttons, nothing further appears
+          secondaryButtons.style.display = "none";
         }
       });
       outputElement.appendChild(backBtn);
@@ -57,23 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const secondaryItems = secondaryButtons.querySelectorAll(".item");
     secondaryItems.forEach((item) => {
       item.addEventListener("click", function () {
-        const gifSrc = item.getAttribute("data-src");
-        outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`;
-        outputElement.style.display = "flex";
-
-        secondaryButtons.style.display = "none"; // Hide secondary buttons
-
-        // Add a back button for secondary buttons
-        const backBtn = document.createElement("button");
-        backBtn.id = "back-btn-secondary";
-        backBtn.textContent = "Back";
-        backBtn.style.marginTop = "10px"; // Small margin for better appearance
-        backBtn.addEventListener("click", function () {
-          outputElement.style.display = "none";
-          outputElement.innerHTML = ""; // Clear the output
-          secondaryButtons.style.display = "grid"; // Show secondary buttons again
-        });
-        outputElement.appendChild(backBtn);
+        handleButtonClick(item, true); // Indicate it's a secondary button
       });
     });
   }
