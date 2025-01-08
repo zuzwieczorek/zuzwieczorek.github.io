@@ -17,12 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to handle button clicks
     function handleButtonClick(button, isSecondary = false) {
       const gifSrc = button.getAttribute("data-src");
+
+      // Show GIF when the button is clicked
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`;
       outputElement.style.display = "flex";
 
       button.style.display = "none"; // Hide the clicked button
-      buttonContainer.style.display = "none";
-      secondaryButtons.style.display = "none";
+      buttonContainer.style.display = "none"; // Hide the primary buttons
+      secondaryButtons.style.display = "none"; // Hide the secondary buttons
 
       // Add a back button
       const backBtn = document.createElement("button");
@@ -35,11 +37,13 @@ document.addEventListener("DOMContentLoaded", function () {
         outputElement.style.display = "none";
         outputElement.innerHTML = ""; // Clear the displayed GIF
 
-        // Only show secondary buttons after all primary are clicked
-        if (primaryClickedCount === 4) {
-          secondaryButtons.style.display = "grid"; // Show secondary buttons after all primary are clicked
-        } else {
-          buttonContainer.style.display = "grid"; // Show primary buttons if not all clicked
+        // Show primary buttons if not all primary buttons have been clicked
+        if (primaryClickedCount < 4) {
+          buttonContainer.style.display = "grid";
+        }
+        // Show secondary buttons if all primary buttons are clicked
+        else {
+          secondaryButtons.style.display = "grid";
         }
 
         backBtn.remove(); // Remove the back button
@@ -57,8 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Show secondary buttons only after all primary buttons are clicked
         if (primaryClickedCount === primaryItems.length) {
-          outputElement.innerHTML = ""; // Clear the GIF here
-          secondaryButtons.style.display = "grid"; // Show secondary buttons after primary buttons
+          // No GIF is displayed yet; it will only be cleared when going back
         }
       });
     });
