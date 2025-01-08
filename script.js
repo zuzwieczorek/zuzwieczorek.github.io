@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       backBtn.addEventListener("click", function () {
         outputElement.style.display = "none";
-        outputElement.innerHTML = "";
+        outputElement.innerHTML = ""; // Clear previous GIF
 
         if (!isSecondary) {
           buttonContainer.style.display = "grid"; // Restore primary buttons
@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Show secondary buttons when all primary buttons are clicked
         if (primaryClickedCount === primaryItems.length) {
           secondaryButtons.style.display = "grid";
+          outputElement.innerHTML = ""; // Clear the GIF when switching to secondary buttons
         }
       });
     });
