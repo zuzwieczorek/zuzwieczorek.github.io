@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         outputElement.style.display = "none";
         outputElement.innerHTML = ""; // Clear the displayed GIF
 
-        // Show primary or secondary buttons based on the progress
+        // Only show secondary buttons after all primary are clicked
         if (primaryClickedCount === 4) {
           secondaryButtons.style.display = "grid"; // Show secondary buttons after all primary are clicked
         } else {
@@ -57,9 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Show secondary buttons only after all primary buttons are clicked
         if (primaryClickedCount === primaryItems.length) {
-          // Clear the GIF if switching to secondary buttons
-          outputElement.innerHTML = ""; 
-          secondaryButtons.style.display = "grid"; 
+          outputElement.innerHTML = ""; // Clear the GIF here
+          secondaryButtons.style.display = "grid"; // Show secondary buttons after primary buttons
         }
       });
     });
@@ -73,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Hide secondary buttons if both are clicked
         if (secondaryClickedCount === secondaryItems.length) {
-          secondaryButtons.style.display = "none";
+          secondaryButtons.style.display = "none"; // Hide secondary buttons after both are clicked
         }
       });
     });
