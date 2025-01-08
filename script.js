@@ -37,16 +37,16 @@ document.addEventListener("DOMContentLoaded", function () {
         outputElement.style.display = "none";
         outputElement.innerHTML = ""; // Clear the displayed GIF
 
-        // Show primary buttons if not all primary buttons have been clicked
+        // Show the primary buttons if not all primary buttons are clicked
         if (primaryClickedCount < 4) {
-          buttonContainer.style.display = "grid";
-        }
-        // Show secondary buttons if all primary buttons are clicked
+          buttonContainer.style.display = "grid"; // Show primary buttons again
+        } 
+        // Show the secondary buttons if all primary buttons have been clicked
         else {
-          secondaryButtons.style.display = "grid";
+          secondaryButtons.style.display = "grid"; // Show secondary buttons only after all primary buttons are clicked
         }
 
-        backBtn.remove(); // Remove the back button
+        backBtn.remove(); // Remove the back button after going back
       });
 
       outputElement.appendChild(backBtn);
@@ -59,9 +59,9 @@ document.addEventListener("DOMContentLoaded", function () {
         primaryClickedCount++;
         handleButtonClick(item);
 
-        // Show secondary buttons only after all primary buttons are clicked
+        // After clicking all primary buttons, show secondary buttons
         if (primaryClickedCount === primaryItems.length) {
-          // No GIF is displayed yet; it will only be cleared when going back
+          // The GIF will be displayed first before secondary buttons show
         }
       });
     });
