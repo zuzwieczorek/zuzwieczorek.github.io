@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const secondaryButtons = document.getElementById("secondary-buttons");
   const outputElement = document.querySelector(".output");
 
-  let clickedCount = 0; // Track clicks on secondary buttons
+  let primaryClickedCount = 0; // Track clicks on primary buttons
   let secondaryClicked = { feel: false, seem: false }; // Track which secondary buttons are clicked
 
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
@@ -34,7 +34,13 @@ document.addEventListener("DOMContentLoaded", function () {
         outputElement.innerHTML = "";
 
         if (!isSecondary) {
-          buttonContainer.style.display = "grid";
+          // Show primary grid if not all primary buttons are clicked
+          primaryClickedCount--;
+          if (primaryClickedCount < items.length) {
+            buttonContainer.style.display = "grid";
+          } else {
+            secondaryButtons.style.display = "grid";
+          }
         } else {
           // Show only unclicked secondary buttons
           if (!secondaryClicked.feel) {
@@ -43,10 +49,10 @@ document.addEventListener("DOMContentLoaded", function () {
           if (!secondaryClicked.seem) {
             document.querySelector("#seem-button").style.display = "block";
           }
-          secondaryButtons.style.display = "grid";
 
-          if (clickedCount === 2) {
-            secondaryButtons.style.display = "none"; // Hide all if both clicked
+          clickedCount--;
+          if (clickedCount === 0) {
+            secondaryButtons.style.display = "none"; // Hide all if none remain
           }
         }
         backBtn.remove();
@@ -58,7 +64,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const items = buttonContainer.querySelectorAll(".item");
     items.forEach((item) => {
       item.addEventListener("click", function () {
+        primaryClickedCount++;
         handleButtonClick(item);
+        // Show secondary buttons if all primary buttons are clicked
+        if (primaryClickedCount === items.length) {
+          buttonContainer.style.display = "none";
+          secondaryButtons.style.display = "grid";
+        }
       });
     });
 
