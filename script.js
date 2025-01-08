@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let primaryClickedCount = 0; // Track clicks on primary buttons
   let secondaryClicked = { feel: false, seem: false }; // Track which secondary buttons are clicked
+  let clickedCount = 0; // Track clicks on secondary buttons
 
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
     // Show primary grid when the quote is clicked
@@ -39,52 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
           if (primaryClickedCount < items.length) {
             buttonContainer.style.display = "grid";
           } else {
-            secondaryButtons.style.display = "grid";
+            secondaryButtons.style.display = "grid"; // Show secondary buttons
           }
         } else {
           // Show only unclicked secondary buttons
           if (!secondaryClicked.feel) {
-            document.querySelector("#feel-button").style.display = "block";
-          }
-          if (!secondaryClicked.seem) {
-            document.querySelector("#seem-button").style.display = "block";
-          }
-
-          clickedCount--;
-          if (clickedCount === 0) {
-            secondaryButtons.style.display = "none"; // Hide all if none remain
-          }
-        }
-        backBtn.remove();
-      });
-      outputElement.appendChild(backBtn);
-    }
-
-    // Add event listeners to primary grid buttons
-    const items = buttonContainer.querySelectorAll(".item");
-    items.forEach((item) => {
-      item.addEventListener("click", function () {
-        primaryClickedCount++;
-        handleButtonClick(item);
-        // Show secondary buttons if all primary buttons are clicked
-        if (primaryClickedCount === items.length) {
-          buttonContainer.style.display = "none";
-          secondaryButtons.style.display = "grid";
-        }
-      });
-    });
-
-    // Add event listeners to secondary buttons
-    const secondaryItems = secondaryButtons.querySelectorAll(".item");
-    secondaryItems.forEach((item) => {
-      item.addEventListener("click", function () {
-        const id = item.id;
-        if (id === "feel-button") secondaryClicked.feel = true;
-        if (id === "seem-button") secondaryClicked.seem = true;
-
-        clickedCount++;
-        handleButtonClick(item, true);
-      });
-    });
-  }
-});
+            document.querySelector("#fee
