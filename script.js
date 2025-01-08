@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         outputElement.style.display = "none";
         outputElement.innerHTML = ""; // Clear the displayed GIF
 
-        // Show the primary buttons if not all primary buttons are clicked
+        // Show the primary buttons if not all primary buttons have been clicked
         if (primaryClickedCount < 4) {
           buttonContainer.style.display = "grid"; // Show primary buttons again
         } 
