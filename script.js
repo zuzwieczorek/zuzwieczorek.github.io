@@ -20,8 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`;
       outputElement.style.display = "flex";
 
-      // Hide the clicked button and grids
-      button.style.display = "none";
+      button.style.display = "none"; // Hide the clicked button
       buttonContainer.style.display = "none";
       secondaryButtons.style.display = "none";
 
@@ -36,16 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
         outputElement.innerHTML = "";
 
         if (!isSecondary) {
-          // Restore primary buttons if not all are clicked
-          primaryClickedCount--;
-          buttonContainer.style.display = "grid";
+          buttonContainer.style.display = "grid"; // Restore primary buttons
         } else {
-          // Restore secondary buttons
-          secondaryClickedCount--;
-          secondaryButtons.style.display = "grid";
+          secondaryButtons.style.display = "grid"; // Restore secondary buttons
         }
 
-        button.style.display = "block"; // Show the clicked button again
         backBtn.remove();
       });
 
