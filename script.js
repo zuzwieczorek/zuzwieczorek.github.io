@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Show secondary buttons when all primary buttons are clicked
         if (primaryClickedCount === primaryItems.length) {
-          secondaryButtons.style.display = "grid";
           outputElement.innerHTML = ""; // Clear the GIF when switching to secondary buttons
+          secondaryButtons.style.display = "grid";
         }
       });
     });
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Hide secondary buttons if both are clicked
         if (secondaryClickedCount === secondaryItems.length) {
-          secondaryButtons.style.display = "none";
+          secondaryButtons.style.display = "none"; // Hide secondary buttons once both are clicked
         }
       });
     });
