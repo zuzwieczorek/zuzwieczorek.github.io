@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const secondaryButtons = document.getElementById("secondary-buttons");
   const outputElement = document.querySelector(".output");
 
-  let primaryClickedCount = 0; // Track primary button clicks
-  let secondaryClickedCount = 0; // Track secondary button clicks
+  let primaryClickedCount = 0; // Track how many primary buttons have been clicked
+  let secondaryClickedCount = 0; // Track how many secondary buttons have been clicked
 
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
-    // Show primary grid when the quote is clicked
+    // Show the primary grid when the quote is clicked
     quoteElement.addEventListener("click", function () {
       buttonContainer.style.display = "grid";
       quoteElement.style.display = "none";
@@ -31,14 +31,15 @@ document.addEventListener("DOMContentLoaded", function () {
       backBtn.style.marginTop = "10px";
 
       backBtn.addEventListener("click", function () {
+        // Clear the GIF when going back
         outputElement.style.display = "none";
-        outputElement.innerHTML = ""; // Clear previous GIF
+        outputElement.innerHTML = ""; // Clear the displayed GIF
 
-        // Only show secondary buttons after the "Back" button is clicked
-        if (primaryClickedCount === primaryItems.length) {
-          secondaryButtons.style.display = "grid"; // Show secondary buttons when primary buttons are done
+        // Show primary or secondary buttons based on the progress
+        if (primaryClickedCount === 4) {
+          secondaryButtons.style.display = "grid"; // Show secondary buttons after all primary are clicked
         } else {
-          buttonContainer.style.display = "grid"; // Show primary buttons if still in primary stage
+          buttonContainer.style.display = "grid"; // Show primary buttons if not all clicked
         }
 
         backBtn.remove(); // Remove the back button
@@ -54,10 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
         primaryClickedCount++;
         handleButtonClick(item);
 
-        // Only show secondary buttons when all primary buttons are clicked
+        // Show secondary buttons only after all primary buttons are clicked
         if (primaryClickedCount === primaryItems.length) {
-          outputElement.innerHTML = ""; // Clear any GIF
-          secondaryButtons.style.display = "grid"; // Show secondary buttons after all primary buttons clicked
+          // Clear the GIF if switching to secondary buttons
+          outputElement.innerHTML = ""; 
+          secondaryButtons.style.display = "grid"; 
         }
       });
     });
@@ -69,9 +71,9 @@ document.addEventListener("DOMContentLoaded", function () {
         secondaryClickedCount++;
         handleButtonClick(item, true);
 
-        // Hide secondary buttons once both are clicked
+        // Hide secondary buttons if both are clicked
         if (secondaryClickedCount === secondaryItems.length) {
-          secondaryButtons.style.display = "none"; // Hide secondary buttons after both are clicked
+          secondaryButtons.style.display = "none";
         }
       });
     });
