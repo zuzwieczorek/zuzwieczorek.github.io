@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let secondaryClickedCount = 0; // Track secondary button clicks
 
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
-    // Show the primary grid when the quote is clicked
+    // Show primary grid when the quote is clicked
     quoteElement.addEventListener("click", function () {
       buttonContainer.style.display = "grid";
       quoteElement.style.display = "none";
@@ -20,7 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
       outputElement.innerHTML = `<img src="${gifSrc}" alt="GIF">`;
       outputElement.style.display = "flex";
 
-      button.style.display = "none"; // Hide clicked button
+      // Hide the clicked button and grids
+      button.style.display = "none";
       buttonContainer.style.display = "none";
       secondaryButtons.style.display = "none";
 
