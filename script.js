@@ -34,13 +34,14 @@ document.addEventListener("DOMContentLoaded", function () {
         outputElement.style.display = "none";
         outputElement.innerHTML = ""; // Clear previous GIF
 
-        if (!isSecondary) {
-          buttonContainer.style.display = "grid"; // Restore primary buttons
+        // Only show secondary buttons after the "Back" button is clicked
+        if (primaryClickedCount === primaryItems.length) {
+          secondaryButtons.style.display = "grid"; // Show secondary buttons when primary buttons are done
         } else {
-          secondaryButtons.style.display = "grid"; // Restore secondary buttons
+          buttonContainer.style.display = "grid"; // Show primary buttons if still in primary stage
         }
 
-        backBtn.remove();
+        backBtn.remove(); // Remove the back button
       });
 
       outputElement.appendChild(backBtn);
@@ -53,10 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
         primaryClickedCount++;
         handleButtonClick(item);
 
-        // Show secondary buttons when all primary buttons are clicked
+        // Only show secondary buttons when all primary buttons are clicked
         if (primaryClickedCount === primaryItems.length) {
-          outputElement.innerHTML = ""; // Clear the GIF when switching to secondary buttons
-          secondaryButtons.style.display = "grid";
+          outputElement.innerHTML = ""; // Clear any GIF
+          secondaryButtons.style.display = "grid"; // Show secondary buttons after all primary buttons clicked
         }
       });
     });
@@ -68,9 +69,9 @@ document.addEventListener("DOMContentLoaded", function () {
         secondaryClickedCount++;
         handleButtonClick(item, true);
 
-        // Hide secondary buttons if both are clicked
+        // Hide secondary buttons once both are clicked
         if (secondaryClickedCount === secondaryItems.length) {
-          secondaryButtons.style.display = "none"; // Hide secondary buttons once both are clicked
+          secondaryButtons.style.display = "none"; // Hide secondary buttons after both are clicked
         }
       });
     });
