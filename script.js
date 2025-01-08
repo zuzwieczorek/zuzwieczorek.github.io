@@ -5,11 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const outputElement = document.querySelector(".output");
 
   let primaryClickedCount = 0; // Track clicks on primary buttons
-  let secondaryClicked = { feel: false, seem: false }; // Track which secondary buttons are clicked
-  let clickedCount = 0; // Track clicks on secondary buttons
+  let secondaryClickedCount = 0; // Track clicks on secondary buttons
 
   if (quoteElement && buttonContainer && secondaryButtons && outputElement) {
-    // Show primary grid when the quote is clicked
+    // Show the primary grid when the quote is clicked
     quoteElement.addEventListener("click", function () {
       buttonContainer.style.display = "grid";
       quoteElement.style.display = "none";
@@ -35,14 +34,53 @@ document.addEventListener("DOMContentLoaded", function () {
         outputElement.innerHTML = "";
 
         if (!isSecondary) {
-          // Show primary grid if not all primary buttons are clicked
+          // Handle primary button logic
           primaryClickedCount--;
-          if (primaryClickedCount < items.length) {
+          button.style.display = "block";
+
+          if (primaryClickedCount < buttonContainer.querySelectorAll(".item").length) {
             buttonContainer.style.display = "grid";
-          } else {
-            secondaryButtons.style.display = "grid"; // Show secondary buttons
           }
         } else {
-          // Show only unclicked secondary buttons
-          if (!secondaryClicked.feel) {
-            document.querySelector("#fee
+          // Handle secondary button logic
+          secondaryClickedCount--;
+          button.style.display = "block";
+
+          if (secondaryClickedCount < secondaryButtons.querySelectorAll(".item").length) {
+            secondaryButtons.style.display = "grid";
+          }
+        }
+        backBtn.remove();
+      });
+      outputElement.appendChild(backBtn);
+    }
+
+    // Add event listeners to primary buttons
+    const primaryItems = buttonContainer.querySelectorAll(".item");
+    primaryItems.forEach((item) => {
+      item.addEventListener("click", function () {
+        primaryClickedCount++;
+        handleButtonClick(item);
+
+        // Show secondary buttons if all primary buttons are clicked
+        if (primaryClickedCount === primaryItems.length) {
+          secondaryButtons.style.display = "grid";
+        }
+      });
+    });
+
+    // Add event listeners to secondary buttons
+    const secondaryItems = secondaryButtons.querySelectorAll(".item");
+    secondaryItems.forEach((item) => {
+      item.addEventListener("click", function () {
+        secondaryClickedCount++;
+        handleButtonClick(item, true);
+
+        // Hide secondary buttons when both are clicked
+        if (secondaryClickedCount === secondaryItems.length) {
+          secondaryButtons.style.display = "none";
+        }
+      });
+    });
+  }
+});
